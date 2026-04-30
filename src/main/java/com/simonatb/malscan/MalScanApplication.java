@@ -1,0 +1,13 @@
+package com.simonatb.malscan;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MalScanApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MalScanApplication.class, args);
+    }
+
+}

@@ -31,6 +31,10 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
             <groupId>fi.solita.clamav</groupId>
             <artifactId>clamav-client</artifactId>
             <version>1.0.1</version>

@@ -25,7 +25,7 @@ public class UserSettingsService {
     public void saveDownloadDirectory(String path) {
         File dir = new File(path);
         if (!dir.exists() || !dir.isDirectory()) {
-            throw new IllegalArgumentException("Path doesn't exist or it's not a dir");
+            throw new IllegalArgumentException("path doesnt exist");
         }
 
         UserSettings settings = repository.findTopByOrderByUpdatedAtDesc()

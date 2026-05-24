@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/resources/application.properties
+
+# Maven
+target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Docker volumes
+docker-compose.yml

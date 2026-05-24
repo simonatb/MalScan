@@ -1,6 +1,9 @@
 package com.simonatb.malscan.service;
 
+import com.simonatb.malscan.entity.ScanResult;
+import com.simonatb.malscan.entity.ScanStatus;
 import com.simonatb.malscan.repository.ScanResultRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
@@ -8,7 +11,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,18 +18,20 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.time.LocalDateTime;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class FileWatcherService implements InitializingBean, DisposableBean {
 
-    private final VirusTotalService virusTotalService;
-    private final ScanResultRepository scanResultRepository;
     private final UserSettingsService userSettingsService;
+    private final ScanResultRepository scanResultRepository;
 
     private WatchService watchService;
     private Thread watchThread;
+
+    @Getter
     private String currentWatchPath;
 
     @Override
@@ -39,20 +43,27 @@ public class FileWatcherService implements InitializingBean, DisposableBean {
                 } catch (Exception e) {
                     log.warn("Could not start watcher on startup: {}", e.getMessage());
                 }
-            }, () -> log.info("No download directory set yet — waiting for user to configure.")
+            },
+            () -> log.info("No download directory set yet — waiting for user to configure.")
         );
     }
 
-    @Override
-    public void destroy() throws Exception {
-        stopWatching();
+    public void stopWatching() {
+        if (watchThread != null) {
+            watchThread.interrupt();
+            watchThread = null;
+        }
+        if (watchService != null) {
+            try {
+                watchService.close();
+            } catch (Exception ignored) {
+                //
+            }
+            watchService = null;
+        }
     }
 
-    public String getCurrentWatchPath() {
-        return currentWatchPath;
-    }
-
-    public void startWatching(String path) throws IOException {
+    public void startWatching(String path) throws Exception {
         stopWatching();
 
         watchService = FileSystems.getDefault().newWatchService();
@@ -66,21 +77,6 @@ public class FileWatcherService implements InitializingBean, DisposableBean {
         watchThread.start();
 
         log.info("Now watching: {}", path);
-    }
-
-    public void stopWatching() {
-        if (watchThread != null) {
-            watchThread.interrupt();
-            watchThread = null;
-        }
-        if (watchService != null) {
-            try {
-                watchService.close();
-            } catch (Exception ignored) {
-                // blop
-            }
-            watchService = null;
-        }
     }
 
     private void runWatcher(String watchPath) {
@@ -134,7 +130,12 @@ public class FileWatcherService implements InitializingBean, DisposableBean {
         pending.setScannedAt(LocalDateTime.now());
         scanResultRepository.save(pending);
 
-        virusTotalService.scan(file, pending.getId());
+        //virusTotalService.scan(file, pending.getId());
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        stopWatching();
     }
 
 }

@@ -1,0 +1,21 @@
+# PostgreSQL
+spring.datasource.url=jdbc:postgresql://localhost:5432/virusscan
+spring.datasource.username=
+spring.datasource.password=
+
+# JPA
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# VirusTotal
+virustotal.api.key=
+virustotal.api.url=https://www.virustotal.com/api/v3
+
+# ClamAV
+clamav.host=localhost
+clamav.port=3310
+clamav.timeout=30000
+
+# Downloads folder to watch
+scanner.watch.path=

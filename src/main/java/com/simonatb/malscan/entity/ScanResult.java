@@ -35,4 +35,3 @@ public class ScanResult {
     private LocalDateTime scannedAt;
 
 }
-

@@ -51,7 +51,7 @@ public class ClamAvService {
         }
     }
 
-    private boolean isPingSuccessful() {
+    public boolean isPingSuccessful() {
         try {
             ClamAVClient client = new ClamAVClient(
                 config.getHost(),

@@ -1,88 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.simonatb.malscan.controller.RegisterController"
-      alignment="CENTER"
-      spacing="0"
-      style="-fx-background-color: #f0f2f5;"
-      prefWidth="420" prefHeight="550">
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.simonatb.malscan.controller.RegisterController"
+           styleClass="root-pane"
+           stylesheets="@../static/malscan.css">
 
-    <VBox alignment="CENTER"
-          spacing="12"
-          style="-fx-background-color: white;
-                 -fx-padding: 40;
-                 -fx-background-radius: 8;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);"
-          maxWidth="360">
+    <HBox styleClass="card">
 
-        <!-- Title -->
-        <Label text="Create Account"
-               style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #333;"/>
-
-        <Region prefHeight="8"/>
-
-        <!-- Error / success label -->
-        <Label fx:id="errorLabel" text=""
-               wrapText="true"
-               maxWidth="280"
-               style="-fx-font-size: 13;"/>
-
-        <!-- Name -->
-        <VBox spacing="4">
-            <Label text="Name" style="-fx-font-size: 13; -fx-text-fill: #555;"/>
-            <TextField fx:id="nameField"
-                       promptText="Your name"
-                       prefWidth="280"
-                       style="-fx-padding: 10; -fx-border-color: #ddd;
-                              -fx-border-radius: 4; -fx-background-radius: 4;"/>
+        <!-- Left gradient panel -->
+        <VBox styleClass="panel, panel-signup">
+            <children>
+                <Region VBox.vgrow="ALWAYS" />
+                <Label text="MalScan" styleClass="brand-name" />
+                <Label text="You download, we scan." styleClass="brand-tagline" />
+            </children>
         </VBox>
 
-        <!-- Email -->
-        <VBox spacing="4">
-            <Label text="Email" style="-fx-font-size: 13; -fx-text-fill: #555;"/>
-            <TextField fx:id="emailField"
-                       promptText="you@example.com"
-                       prefWidth="280"
-                       style="-fx-padding: 10; -fx-border-color: #ddd;
-                              -fx-border-radius: 4; -fx-background-radius: 4;"/>
+        <!-- Right form side -->
+        <VBox styleClass="form-side" HBox.hgrow="ALWAYS">
+            <children>
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Label text="Sign up account" styleClass="form-title" />
+                <Label text="Enter your personal data to create your account."
+                       styleClass="form-sub" wrapText="true" />
+
+                <Label text="Name" styleClass="field-label" />
+                <TextField fx:id="nameField" styleClass="input-field" />
+
+                <Label text="Email" styleClass="field-label" />
+                <TextField fx:id="emailField" styleClass="input-field" />
+
+                <Label text="Password" styleClass="field-label" />
+                <PasswordField fx:id="passwordField" styleClass="input-field" />
+
+                <!-- Error / success message -->
+                <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" />
+
+                <Button fx:id="registerButton" text="Sign Up" styleClass="btn-primary"
+                        onAction="#onRegister" maxWidth="Infinity" />
+
+                <HBox styleClass="switch-link" alignment="CENTER">
+                    <Label text="Already have an account? " styleClass="switch-text" />
+                    <Hyperlink text="Log in" onAction="#onLoginLink" styleClass="switch-anchor" />
+                </HBox>
+
+                <Region VBox.vgrow="ALWAYS" />
+            </children>
         </VBox>
 
-        <!-- Password -->
-        <VBox spacing="4">
-            <Label text="Password" style="-fx-font-size: 13; -fx-text-fill: #555;"/>
-            <PasswordField fx:id="passwordField"
-                           promptText="Min. 6 characters"
-                           prefWidth="280"
-                           style="-fx-padding: 10; -fx-border-color: #ddd;
-                                  -fx-border-radius: 4; -fx-background-radius: 4;"/>
-        </VBox>
+    </HBox>
 
-        <Region prefHeight="4"/>
-
-        <!-- Register button -->
-        <Button fx:id="registerButton"
-                text="Create Account"
-                prefWidth="280"
-                onAction="#onRegister"
-                style="-fx-background-color: #2196F3;
-                       -fx-text-fill: white;
-                       -fx-font-size: 14;
-                       -fx-padding: 12;
-                       -fx-background-radius: 4;
-                       -fx-cursor: hand;"/>
-
-        <!-- Login link -->
-        <HBox alignment="CENTER" spacing="4">
-            <Label text="Already have an account?"
-                   style="-fx-font-size: 13; -fx-text-fill: #555;"/>
-            <Hyperlink text="Login"
-                       onAction="#onLoginLink"
-                       style="-fx-font-size: 13;"/>
-        </HBox>
-
-    </VBox>
-</VBox>
+</StackPane>

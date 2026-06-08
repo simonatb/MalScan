@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.simonatb.malscan.controller.LoginController"
+           styleClass="root-pane"
+           stylesheets="@../static/malscan.css">
+
+    <HBox styleClass="card">
+
+        <!-- Left gradient panel -->
+        <VBox styleClass="panel, panel-login">
+            <children>
+                <Region VBox.vgrow="ALWAYS" />
+                <Label text="MalScan" styleClass="brand-name" />
+                <Label text="You download, we scan." styleClass="brand-tagline" />
+            </children>
+        </VBox>
+
+        <!-- Right form side -->
+        <VBox styleClass="form-side" HBox.hgrow="ALWAYS">
+            <children>
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Label text="Hello again!" styleClass="form-title" />
+                <Label text="Enter your personal data to login into your account."
+                       styleClass="form-sub" wrapText="true" />
+
+                <Label text="Email" styleClass="field-label" />
+                <TextField fx:id="emailField" styleClass="input-field" />
+
+                <Label text="Password" styleClass="field-label" />
+                <PasswordField fx:id="passwordField" styleClass="input-field" />
+
+                <!-- Error / success message -->
+                <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" />
+
+                <Button fx:id="loginButton" text="Log in" styleClass="btn-primary"
+                        onAction="#onLogin" maxWidth="Infinity" />
+
+                <HBox styleClass="switch-link" alignment="CENTER">
+                    <Label text="Don't have an account? " styleClass="switch-text" />
+                    <Hyperlink text="Sign up" onAction="#onSignupLink" styleClass="switch-anchor" />
+                </HBox>
+
+                <Region VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+
+    </HBox>
+
+</StackPane>

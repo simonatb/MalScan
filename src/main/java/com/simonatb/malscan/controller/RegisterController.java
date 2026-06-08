@@ -1,5 +1,6 @@
 package com.simonatb.malscan.controller;
 
+import com.simonatb.malscan.configuration.SpringContext;
 import com.simonatb.malscan.entity.User;
 import com.simonatb.malscan.entity.VerificationToken;
 import com.simonatb.malscan.repository.TokenRepository;
@@ -102,8 +103,10 @@ public class RegisterController {
     @FXML
     public void onLoginLink() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            Stage stage = (Stage) nameField.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/login.fxml"));
+            loader.setControllerFactory(SpringContext.getContext()::getBean);
+            Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             e.printStackTrace();

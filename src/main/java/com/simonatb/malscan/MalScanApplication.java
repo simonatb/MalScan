@@ -20,8 +20,9 @@ public class MalScanApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
-        loader.setControllerFactory(springContext::getBean); // ← lets Spring inject into controllers
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/login.fxml"));
+        loader.setControllerFactory(springContext::getBean);
         Scene scene = new Scene(loader.load());
         stage.setTitle("MalScan");
         stage.setScene(scene);
